@@ -14,7 +14,26 @@
                         </div>
                     @endif
 
-                    {{ __('You are logged in!') }}
+                    <h3>Your Listings</h3>
+                    @if(count($listings) > 0)
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Company Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($listings as $list)
+                                    <tr>
+                                        <td>{{ $list->name }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @else
+                        <p>You don't have any Listings Yet..</p>
+                    @endif
+
                 </div>
             </div>
         </div>

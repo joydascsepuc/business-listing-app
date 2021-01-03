@@ -24,4 +24,7 @@ Route::get('/', 'App\Http\Controllers\PagesController@index')->name('homePage');
 // Routes of Authetications
 Auth::routes();
 
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Routes of ListingsController
+Route::resource('listings','App\Http\Controllers\ListingsController');
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
