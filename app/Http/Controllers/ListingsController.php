@@ -8,6 +8,12 @@ use Illuminate\Support\Facades\Auth;
 
 class ListingsController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware('auth', ['except' => ['index', 'show']]);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -65,7 +71,8 @@ class ListingsController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = Listing::find($id);
+        return view('pages.show')->with('data',$data);
     }
 
     /**
@@ -76,7 +83,8 @@ class ListingsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = Listing::find($id);
+        return view('pages.edit')->with('data',$data);
     }
 
     /**
@@ -88,7 +96,25 @@ class ListingsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'address' => 'required',
+            'website' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required',
+            'bio' => 'required',
+        ]);
+
+        $data = Listing::Find($id);
+        $data->user_id = Auth::id();
+        $data->name = $request->input('name');
+        $data->address = $request->input('address');
+        $data->website = $request->input('website');
+        $data->email = $request->input('email');
+        $data->phone = $request->input('phone');
+        $data->bio = $request->input('bio');
+        $data->save();
+        return redirect('/home')->with('success','Listing Updated.');
     }
 
     /**
@@ -99,6 +125,8 @@ class ListingsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = Listing::Find($id);
+        $data->delete();
+        return redirect('/home')->with('success','Lisiting Deleted Successfully.!');
     }
 }

@@ -20,12 +20,21 @@
                             <thead>
                                 <tr>
                                     <th>Company Name</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($listings as $list)
                                     <tr>
                                         <td>{{ $list->name }}</td>
+                                        <td>
+                                            <a href="/listings/{{$list->id}}/edit" class="btn btn-sm float-left btn-primary">Edit</a>
+                                            <form action="/listings/{{$list->id}}" method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="btn btn-sm btn-danger">Delete</button>
+                                            </form>
+                                            </td>
                                     </tr>
                                 @endforeach
                             </tbody>
