@@ -34,7 +34,7 @@
                                                 @method('DELETE')
                                                 <button class="btn btn-sm btn-danger">Delete</button>
                                             </form>
-                                            </td>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
